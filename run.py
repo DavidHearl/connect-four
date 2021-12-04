@@ -1,26 +1,44 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+import numpy as np
 
-class Board:
+class ConnectFour:
     """
-    Main board class. Creates fresh board for the game to be played on.
+    Main class.
     """
-    def __init__(self, columns, rows):
-        self.columns = columns
-        self.rows = rows
+    def __init__(self):
+        self.board = np.zeros(shape= (7,6), dtype=str)
+        self.winner = None
+        self.to_play = None
+    
+    def printBoard(self):
+        print("|",end="")
+        for i in range(7):
+            print("| "
 
-    def create_board(self):
-        print("+---+---+---+---+---+---+---+")
-        print("|   |   |   |   |   |   |   |")
-        print("|   |   |   |   |   |   |   |")
-        print("|   |   |   |   |   |   |   |")
-        print("|   |   |   |   |   |   |   |")
-        print("|   |   |   |   |   |   |   |")
-        print("|   |   |   |   |   |   |   |")
-        print("+---+---+---+---+---+---+---+")
-        
+game = ConnectFour()
+game.printBoard()
 
-size = Board(7, 6)
-print(size.columns)
-print(size.create_board())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#print(   1   2   3   4   5   6   7)
+#print("+---+---+---+---+---+---+---+")
+#print("|   |   |   |   |   |   |   |")
+#print("|   |   |   |   |   |   |   |")
+#print("|   |   |   |   |   |   |   |")
+#print("|   |   |   |   |   |   |   |")
+#print("|   |   |   |   |   |   |   |")
+#print("| X | O |   |   |   |   |   |")
+#print("+---+---+---+---+---+---+---+")
