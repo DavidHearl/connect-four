@@ -31,20 +31,25 @@ class ConnectFour:
             height -= 1
 
         self.board[height, column] = self.to_play
-        
+
         if self.to_play == 1:
             self.to_play = 2
         else:
             self.to_play = 1
 
-        #print(height)        
-        #print(selectedColumn)
+    def playGame(self):
+        print("Welcome to connect 4")
+        print("You are X")
+        self.to_play = 1
+        for _ in range(8):
+            if self.to_play == 1:
+                self.move(int(input("Enter Column: ")))
+            else:
+                self.move(np.random.randint(7))
+
+            self.printBoard()
 
 
 game = ConnectFour()
-game.board[5,1] = 2
 game.printBoard()
-game.to_play = 1
-game.move(1)
-print(game.to_play)
-game.printBoard()
+game.playGame()
