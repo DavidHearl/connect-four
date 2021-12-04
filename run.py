@@ -5,14 +5,18 @@ class ConnectFour:
     Main class.
     """
     def __init__(self):
-        self.board = np.zeros(shape= (7,6), dtype=str)
+        self.board = np.zeros(shape= (6,7), dtype=str)
         self.winner = None
         self.to_play = None
     
     def printBoard(self):
-        print("|",end="")
-        for i in range(7):
-            print("| "
+        print("+---+---+---+---+---+---+---+")
+        for r in range(6):
+            for column in range(7):
+                print(self.board[0,column] + "|   ", end="")
+            print("|")
+        print("+---+---+---+---+---+---+---+")
+        print("  1   2   3   4   5   6   7  ")
 
 game = ConnectFour()
 game.printBoard()
