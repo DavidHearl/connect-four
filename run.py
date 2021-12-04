@@ -47,9 +47,47 @@ class ConnectFour:
             else:
                 self.move(np.random.randint(7))
 
+            print(self.checkFour(self.board[:,0]))
+            print(self.board[:,0])
             self.printBoard()
 
+    def checkFour(self, values):
+        current = values[0]
+        count = 0
+        for i in range(len(values)):
+            if values[i] == 0:
+                current = values[i]
+                count = 1
+                pass
+
+            if values[i] == current:
+                count += 1
+            else:
+                current = values[i]
+                count = 1
+            
+            if count == 4:
+                return current
+            
 
 game = ConnectFour()
 game.printBoard()
 game.playGame()
+print(game.checkFour([0,1,1,1,1,0]))
+
+"""
+Currently have function to check for 4 in a row in an array
+
+Must write functions to:
+    - Check columns for wins
+    - Checks rows for wins
+    - Check diagonals for wins
+    - Function to wrap above functions
+
+    - Include winCheck in move function
+    - Adapt play function to create win message
+    - error checkers
+
+    - Maybe make computer less stupid
+
+"""
