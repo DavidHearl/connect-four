@@ -5,44 +5,23 @@ class ConnectFour:
     Main class.
     """
     def __init__(self):
-        self.board = np.zeros(shape= (6,7), dtype=str)
+        self.board = np.zeros(shape= (6,7), dtype=int)
         self.winner = None
         self.to_play = None
     
     def printBoard(self):
+        markers = [" ", "X", "O"]
         print("+---+---+---+---+---+---+---+")
-        for r in range(6):
+        for row in range(6):
             for column in range(7):
-                print(self.board[0,column] + "|   ", end="")
+                print("| " + markers[self.board[row,column]] + " ", end="")
             print("|")
         print("+---+---+---+---+---+---+---+")
-        print("  1   2   3   4   5   6   7  ")
+        print("  0   1   2   3   4   5   6  ")
+
 
 game = ConnectFour()
+game.board[0,1] = 1
+game.board[1,0] = 1
+print(game.board)
 game.printBoard()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#print(   1   2   3   4   5   6   7)
-#print("+---+---+---+---+---+---+---+")
-#print("|   |   |   |   |   |   |   |")
-#print("|   |   |   |   |   |   |   |")
-#print("|   |   |   |   |   |   |   |")
-#print("|   |   |   |   |   |   |   |")
-#print("|   |   |   |   |   |   |   |")
-#print("| X | O |   |   |   |   |   |")
-#print("+---+---+---+---+---+---+---+")
