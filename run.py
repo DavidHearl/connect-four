@@ -51,7 +51,25 @@ class ConnectFour:
         win = None
         while not win:
             if self.to_play == 1:
-                self.move(int(input("Enter Column: ")))
+                incorrectFormat = True
+                while incorrectFormat:
+                    userInput = input("Enter Column: ")
+                    try:
+                        int(userInput)
+                    except:
+                        print("You have not entered an integer")
+                        pass
+                    else:
+                        userInput = int(userInput)
+                    #if type(userInput) != int:
+                    #    print("You have not selected a column")
+                    #    pass
+                    if userInput not in range(7):
+                        print("Number is not between 0 and 6")
+                        pass
+                    else:
+                        incorrectFormat = False
+                self.move(userInput)
             else:
                 self.move(np.random.randint(7))
 
@@ -131,14 +149,7 @@ print("Welcome to connect four, to play please enter the column you would like t
 main()
 
 """
-Currently have function to check for 4 in a row in an array
-
 Must write functions to:
-
-    - Include winCheck in move function
-    - Adapt play function to create win message
-    - error checkers
-        - error for wrong input type (not int)
-
+    - Check columns arn't full (for user and computer)
     - Maybe make computer less stupid
 """
