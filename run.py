@@ -10,6 +10,9 @@ class ConnectFour:
         self.to_play = None
     
     def printBoard(self):
+        """
+        Assigns values to markers and creates board
+        """
         markers = [" ", "X", "O"]
         print("+---+---+---+---+---+---+---+")
         for row in range(6):
@@ -20,6 +23,9 @@ class ConnectFour:
         print("  0   1   2   3   4   5   6  ")
 
     def move(self, column):
+        """
+
+        """
         # Write Checks for winner, check if they have pick 0-6, check is column is full.
         selectedColumn = self.board[:,column]
         filled = True
@@ -38,20 +44,28 @@ class ConnectFour:
             self.to_play = 1
 
     def playGame(self):
-        print("Welcome to connect 4")
-        print("You are X")
+        """
+        Sets player as 1 then gets PC to select a random point between 0 and 6
+        """
         self.to_play = 1
-        for _ in range(8):
+        for _ in range(12):
             if self.to_play == 1:
                 self.move(int(input("Enter Column: ")))
             else:
-                self.move(np.random.randint(7))
+                self.move(6)
+                #self.move(np.random.randint(7))
+                
 
             print(self.checkFour(self.board[:,0]))
             print(self.board[:,0])
+            print(self.checkWinner())
             self.printBoard()
 
     def checkFour(self, values):
+        """
+        Checks to see if there are 4 values in a row, 
+        ignoring 0 as it is an empty space.
+        """
         current = values[0]
         count = 0
         for i in range(len(values)):
@@ -68,12 +82,36 @@ class ConnectFour:
             
             if count == 4:
                 return current
-            
 
-game = ConnectFour()
-game.printBoard()
-game.playGame()
-print(game.checkFour([0,1,1,1,1,0]))
+    def checkWinner(self):
+        """
+        Checks for winner
+        """
+        for column in range(6):
+            values = self.board[:,column]
+            result = self.checkFour(values)
+        
+            if result:
+                return result
+
+        for row in range(6):
+            values = self.board[row,:]
+            result = self.checkFour(values)
+        
+            if result:
+                return result
+
+
+def main():
+    game = ConnectFour()
+    game.printBoard()
+    game.playGame()
+
+print("Welcome to connect four, to play please enter the column you would like to play in")
+main()
+
+#print(game.checkFour([0,1,1,1,1,0]))
+
 
 """
 Currently have function to check for 4 in a row in an array
@@ -87,6 +125,7 @@ Must write functions to:
     - Include winCheck in move function
     - Adapt play function to create win message
     - error checkers
+    - Change play game to while loop based on game finish/win
 
     - Maybe make computer less stupid
 
