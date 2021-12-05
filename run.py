@@ -58,6 +58,11 @@ class ConnectFour:
             self.printBoard()
             win = self.checkWinner()
         print(f"Player {self.markers[win]} has won the game")
+        playAgain = input("Would you like to play again Y/N: ")
+        playAgain = playAgain.lower()
+        if playAgain == "y":
+            # Run file again if user types "Y"
+            exec(open('run.py').read())
 
     def checkFour(self, values):
         """
@@ -115,6 +120,9 @@ class ConnectFour:
                 return result        
 
 def main():
+    """
+    Runs all program functions
+    """
     game = ConnectFour()
     game.printBoard()
     game.playGame()
@@ -123,30 +131,14 @@ print("Welcome to connect four, to play please enter the column you would like t
 main()
 
 """
-game = ConnectFour()
-np.fill_diagonal(game.board,val=2)
-game.printBoard()
-print(game.checkWinner())
-game.board = np.fliplr(game.board)
-print(game.board)
-print(game.checkWinner())
-"""
-
-
-"""
 Currently have function to check for 4 in a row in an array
 
 Must write functions to:
-    - Check columns for wins
-    - Checks rows for wins
-    - Check diagonals for wins
-    - Function to wrap above functions
 
     - Include winCheck in move function
     - Adapt play function to create win message
     - error checkers
-    - Change play game to while loop based on game finish/win
+        - error for wrong input type (not int)
 
     - Maybe make computer less stupid
-
 """
