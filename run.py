@@ -48,17 +48,18 @@ class ConnectFour:
         Sets player as 1 then gets PC to select a random point between 0 and 6
         """
         self.to_play = 1
-        for _ in range(12):
+        for _ in range(16):
             if self.to_play == 1:
                 self.move(int(input("Enter Column: ")))
             else:
-                self.move(6)
+                self.move(0)
+                self.move(1)
+                self.move(2)
                 #self.move(np.random.randint(7))
                 
-
-            print(self.checkFour(self.board[:,0]))
             print(self.board[:,0])
             print(self.checkWinner())
+            print(self.board.diagonal(), print(self.board.diagonal(1))),
             self.printBoard()
 
     def checkFour(self, values):
@@ -85,7 +86,7 @@ class ConnectFour:
 
     def checkWinner(self):
         """
-        Checks for winner
+        Checks for columns and rows for a win
         """
         for column in range(6):
             values = self.board[:,column]
@@ -101,17 +102,36 @@ class ConnectFour:
             if result:
                 return result
 
+        # There is no point checking the diagonals that are less the 4
+        for diag in range(-3, 4):
+            values = self.board.diagonal(diag)
+            result = self.checkFour(values)
 
-def main():
-    game = ConnectFour()
-    game.printBoard()
-    game.playGame()
+            if result:
+                return result
+
+        for diagReverse in range(-3, 4):
+            values = np.fliplr(self.board).diagonal(diagReverse)
+            result = self.checkFour(values)
+
+            if result:
+                return result        
+
+#def main():
+    #game = ConnectFour()
+    #game.printBoard()
+    #game.playGame()
 
 print("Welcome to connect four, to play please enter the column you would like to play in")
-main()
+#main()
 
-#print(game.checkFour([0,1,1,1,1,0]))
-
+game = ConnectFour()
+np.fill_diagonal(game.board,val=2)
+game.printBoard()
+print(game.checkWinner())
+game.board = np.fliplr(game.board)
+print(game.board)
+print(game.checkWinner())
 
 """
 Currently have function to check for 4 in a row in an array
