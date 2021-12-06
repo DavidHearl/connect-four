@@ -36,7 +36,6 @@ class ConnectFour:
         the grid starts at 0,0 so it needs to count backwards
         Sets the next turn as either X or O (1 or 2)
         """
-        selected_column = self.board[:, column]
         filled = True
         height = 5
         while filled:
@@ -95,7 +94,7 @@ class ConnectFour:
 
     def check_four(self, values):
         """
-        Checks to see if there are 4 values in a row, 
+        Checks to see if there are 4 values in a row,
         ignoring 0 as it is an empty space.
         """
         current = values[0]
@@ -104,7 +103,6 @@ class ConnectFour:
             if values[i] == 0:
                 current = values[i]
                 count = 1
-                pass
 
             if values[i] == current:
                 count += 1
@@ -165,6 +163,7 @@ class ConnectFour:
                 options.append(col)
         return options
 
+
 def main():
     """
     Runs all program functions
@@ -172,6 +171,7 @@ def main():
     game = ConnectFour()
     game.print_board()
     game.play_game()
+
 
 print("\nWelcome to Connect 4 !")
 print("Please select a column :")
@@ -186,5 +186,4 @@ main()
 
 # Must write functions to:
 
-# Check columns arn't full (for user and computer)
 # Maybe make computer less stupid
