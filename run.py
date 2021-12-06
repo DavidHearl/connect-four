@@ -60,6 +60,7 @@ class ConnectFour:
         """
         self.to_play = 1
         win = None
+        previous_user_input = None
         while win == None:
             if self.to_play == 1:
                 incorrect_format = True
@@ -78,8 +79,18 @@ class ConnectFour:
                     else:
                         incorrect_format = False
                 self.move(user_input)
+                previous_user_input = user_input
             else:
-                self.move(np.random.choice(self.possible_moves()))
+                desirable_moves = [previous_user_input -1, previous_user_input, previous_user_input + 1]
+                possible_moves = []
+                for col in desirable_moves:
+                    if col in self.possible_moves():
+                        possible_moves.append(col)
+
+                if len(possible_moves) == 0:
+                    self.move(np.random.choice(self.possible_moves()))
+                else:
+                    self.move(np.random.choice(possible_moves))
 
             self.print_board()
             win = self.check_winner()
