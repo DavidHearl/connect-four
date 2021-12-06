@@ -1,33 +1,42 @@
 import numpy as np
 
+
 class ConnectFour:
     """
-    Main class.
+    Main class, contains the play_game function,
+    move and validation functions
     """
     def __init__(self):
-        self.board = np.zeros(shape= (6,7), dtype=int)
+        """
+        Defines the board using numpy.
+        Sets 'winner' and 'to_play' as none/false.
+        Creates the markers that will be used to replace 0, 1 and 2
+        """
+        self.board = np.zeros(shape=(6, 7), dtype=int)
         self.winner = None
         self.to_play = None
         self.markers = [" ", "X", "O"]
-    
-    def printBoard(self):
+
+    def print_board(self):
         """
-        Assigns values to markers and creates board
+        Creates the opening and close of the connect four table.
+        Creates the inner grid of rows and columns
         """
         print("+---+---+---+---+---+---+---+")
         for row in range(6):
             for column in range(7):
-                print("| " + self.markers[self.board[row,column]] + " ", end="")
+                print("| " + self.markers[self.board[row, column]] + " ", end="")
             print("|")
         print("+---+---+---+---+---+---+---+")
         print("  0   1   2   3   4   5   6  ")
 
     def move(self, column):
         """
-
+        Places the counter at the bottom of the grid
+        the grid starts at 0,0 so it needs to count backwards
+        Sets the next turn as either X or O (1 or 2)
         """
-        # Write Checks for winner, check if they have pick 0-6, check is column is full.
-        selectedColumn = self.board[:,column]
+        selected_column = self.board[:, column]
         filled = True
         height = 5
         while filled:
@@ -43,46 +52,48 @@ class ConnectFour:
         else:
             self.to_play = 1
 
-    def playGame(self):
+    def play_game(self):
         """
-        Sets player as 1 then gets PC to select a random point between 0 and 6
+        Sets the user to X and winner to none
+        Checks the user is using the correct formatting (int)
+        Generates a random move for the computer
+        Tells the user who has won and asks if they would like to play again
         """
         self.to_play = 1
         win = None
-        while not win:
+        while win == None:
             if self.to_play == 1:
-                incorrectFormat = True
-                while incorrectFormat:
-                    userInput = input("Enter Column: ")
+                incorrect_format = True
+                while incorrect_format:
+                    user_input = input("Enter Column: ")
                     try:
-                        int(userInput)
+                        int(user_input)
                     except:
                         print("You have not entered an integer")
-                        pass
                     else:
-                        userInput = int(userInput)
-                    #if type(userInput) != int:
-                    #    print("You have not selected a column")
-                    #    pass
-                    if userInput not in range(7):
+                        user_input = int(user_input)
+                    if user_input not in range(7):
                         print("Number is not between 0 and 6")
-                        pass
+                    elif user_input not in self.possible_moves():
+                        print("This column is already full")
                     else:
-                        incorrectFormat = False
-                self.move(userInput)
+                        incorrect_format = False
+                self.move(user_input)
             else:
-                self.move(np.random.randint(7))
+                self.move(np.random.choice(self.possible_moves()))
 
-            self.printBoard()
-            win = self.checkWinner()
+            self.print_board()
+            win = self.check_winner()
+
         print(f"Player {self.markers[win]} has won the game")
-        playAgain = input("Would you like to play again Y/N: ")
-        playAgain = playAgain.lower()
-        if playAgain == "y":
+        play_again = input("Would you like to play again Y/N: ")
+        play_again = play_again.lower()
+
+        if play_again == "y":
             # Run file again if user types "Y"
             exec(open('run.py').read())
 
-    def checkFour(self, values):
+    def check_four(self, values):
         """
         Checks to see if there are 4 values in a row, 
         ignoring 0 as it is an empty space.
@@ -104,52 +115,76 @@ class ConnectFour:
             if count == 4:
                 return current
 
-    def checkWinner(self):
+    def check_winner(self):
         """
-        Checks for columns and rows for a win
+        Checks columns for win
+        Checks rows for win
+        Check left and right diagonal for wins
         """
         for column in range(6):
-            values = self.board[:,column]
-            result = self.checkFour(values)
-        
+            values = self.board[:, column]
+            result = self.check_four(values)
+
             if result:
                 return result
 
         for row in range(6):
-            values = self.board[row,:]
-            result = self.checkFour(values)
-        
+            values = self.board[row, :]
+            result = self.check_four(values)
+
             if result:
                 return result
 
-        # There is no point checking the diagonals that are less the 4
+        # We dont need to check the corners of the grid as there are not
+        # enough spaces in the corner to reach 4 in a row
         for diag in range(-3, 4):
             values = self.board.diagonal(diag)
-            result = self.checkFour(values)
+            result = self.check_four(values)
 
             if result:
                 return result
 
-        for diagReverse in range(-3, 4):
-            values = np.fliplr(self.board).diagonal(diagReverse)
-            result = self.checkFour(values)
+        for diag_reverse in range(-3, 4):
+            values = np.fliplr(self.board).diagonal(diag_reverse)
+            result = self.check_four(values)
 
             if result:
-                return result        
+                return result
+
+        if 0 not in self.board:
+            return 0
+
+    def possible_moves(self):
+        """
+        Returns moves that can still be played
+        """
+        options = []
+        for col in range(7):
+            values = self.board[:, col]
+            if values[0] == 0:
+                options.append(col)
+        return options
 
 def main():
     """
     Runs all program functions
     """
     game = ConnectFour()
-    game.printBoard()
-    game.playGame()
+    game.print_board()
+    game.play_game()
 
-print("Welcome to connect four, to play please enter the column you would like to play in")
+print("\nWelcome to Connect 4 !")
+print("Please select a column :")
 main()
 
-"""
-Must write functions to:
-    - Check columns arn't full (for user and computer)
-    - Maybe make computer less stupid
-"""
+# To Do List
+
+# Create flow chart to show the plan of the project
+# Write comments to explain code
+# Write read me file
+# Deploy Project
+
+# Must write functions to:
+
+# Check columns arn't full (for user and computer)
+# Maybe make computer less stupid
