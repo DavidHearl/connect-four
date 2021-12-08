@@ -1,4 +1,7 @@
 import numpy as np
+"""
+Import numpy to for board and transpositioning
+"""
 
 
 class ConnectFour:
@@ -61,7 +64,7 @@ class ConnectFour:
         self.to_play = 1
         win = None
         previous_user_input = None
-        while win == None:
+        while win is None:
             if self.to_play == 1:
                 incorrect_format = True
                 while incorrect_format:
@@ -120,7 +123,7 @@ class ConnectFour:
             else:
                 current = values[i]
                 count = 1
-            
+
             if count == 4:
                 return current
 
@@ -194,7 +197,3 @@ main()
 # Write comments to explain code
 # Write read me file
 # Deploy Project
-
-# Must write functions to:
-
-# Maybe make computer less stupid
