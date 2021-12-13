@@ -1,7 +1,10 @@
-import numpy as np
 """
 Import numpy to for board and transpositioning
 """
+
+
+import numpy as np
+from utilities import configure_board
 
 
 class ConnectFour:
@@ -26,10 +29,7 @@ class ConnectFour:
         Creates the inner grid of rows and columns
         """
         print("+---+---+---+---+---+---+---+")
-        for row in range(6):
-            for column in range(7):
-                print("| " + self.markers[self.board[row, column]] + " ", end="")
-            print("|")
+        configure_board(self.markers, self.board)
         print("+---+---+---+---+---+---+---+")
         print("  0   1   2   3   4   5   6  ")
 
@@ -63,7 +63,7 @@ class ConnectFour:
         """
         self.to_play = 1
         win = None
-        previous_user_input = None
+        prev_input = None
         while win is None:
             if self.to_play == 1:
                 incorrect_format = True
@@ -71,7 +71,7 @@ class ConnectFour:
                     user_input = input("Enter Column: ")
                     try:
                         int(user_input)
-                    except:
+                    except ValueError:
                         print("You have not entered an integer")
                     else:
                         user_input = int(user_input)
@@ -82,9 +82,9 @@ class ConnectFour:
                     else:
                         incorrect_format = False
                 self.move(user_input)
-                previous_user_input = user_input
+                prev_input = user_input
             else:
-                desirable_moves = [previous_user_input -1, previous_user_input, previous_user_input + 1]
+                desirable_moves = [prev_input - 1, prev_input, prev_input + 1]
                 possible_moves = []
                 for col in desirable_moves:
                     if col in self.possible_moves():
@@ -104,7 +104,8 @@ class ConnectFour:
 
         if play_again == "y":
             # Run file again if user types "Y"
-            exec(open('run.py').read())
+            self.board = np.zeros(shape=(6, 7), dtype=int)
+            return self.play_game()
 
     def check_four(self, values):
         """
@@ -193,7 +194,6 @@ main()
 
 # To Do List
 
-# Create flow chart to show the plan of the project
 # Write comments to explain code
 # Write read me file
 # Deploy Project
