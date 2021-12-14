@@ -60,10 +60,6 @@ The finished project was tested by two users.
 
 - Neither user discovered any bugs and the project appears to be working correctly
 
-## Bugs
-
-- No bugs remaining
-
 ## Validator Testing
 
 - PEP8 
