@@ -195,5 +195,4 @@ main()
 # To Do List
 
 # Write comments to explain code
-# Write read me file
 # Deploy Project
