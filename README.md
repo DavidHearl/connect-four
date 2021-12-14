@@ -2,6 +2,8 @@
 
 Connect four is a Python terminal game, which runs in the Code Institute mock terminal on Heroku.
 
+https://dry-savannah-35963.herokuapp.com/
+
 Users can compete against to computer to be the first to get four counters in a row. This can vertical, horizontal or diagonal.
 
 ## How to play
