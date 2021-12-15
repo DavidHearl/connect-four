@@ -21,8 +21,7 @@ The winner is determined when a user gets 4 counters in a line.
 ## Project Inception
 
 At the start of the project I created a flow chart to set the structure for the code yet to be created and provide a guide to follow throughout the project.
-
-![Connect Four Flow Chart](./connect-four-flow-chart.jpg)
+![Connect Four Flow Chart](./assets/images/connect-four-flow-chart.jpg)
 
 ## Features
 
