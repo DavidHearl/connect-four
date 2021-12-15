@@ -1,14 +1,11 @@
-"""
-Import numpy to for board and transpositioning
-"""
+"""Import numpy to for board and transpositioning"""
 
 
 from models.connect_four import ConnectFour
 
+
 def main():
-    """
-    Runs all program functions
-    """
+    """Runs all program functions"""
     game = ConnectFour()
     game.print_board()
     game.play_game()

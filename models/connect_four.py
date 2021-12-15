@@ -1,9 +1,9 @@
-"""
-"""
+"""Placeholder"""
 
 
 import numpy as np
 from utilities import configure_board
+
 
 class ConnectFour:
     """
@@ -157,7 +157,8 @@ class ConnectFour:
                 return result
 
         for diag_reverse in range(-3, 4):
-            # Used numpy diagonal to search for an array containing 4 diagonal numbers
+            # Used numpy diagonal to search for
+            # an array containing 4 diagonal numbers
             # https://numpy.org/doc/stable/reference/generated/numpy.diagonal.html
             values = np.fliplr(self.board).diagonal(diag_reverse)
             result = self.check_four(values)
