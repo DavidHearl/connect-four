@@ -28,16 +28,25 @@ At the start of the project I created a flow chart to set the structure for the 
 ### Existing Features
 
 - Accepts user input
+
 ![Enter Input](./assets/images/start-up.jpg)
+
 - Player can play against the computer
+
 ![Show Computers Turn](./assets/images/user-enters-input.jpg)
+
 - Input validation and error checking:
     - User cannot select a column outside the grid
     - User must enter an integer
+
 ![Error checking](./assets/images/incorrect-input.jpg)
+
 - Displays message if the user wins
+
 ![Player wins](./assets/images/player-wins.jpg)
+
 - Allows to user to play again
+
 ![Play again](./assets/images/play-again.jpg)
 
 ### Future Features
