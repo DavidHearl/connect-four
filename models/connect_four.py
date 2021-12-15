@@ -103,6 +103,7 @@ class ConnectFour:
         if play_again == "y":
             # Run file again if user types "Y"
             self.board = np.zeros(shape=(6, 7), dtype=int)
+            self.print_board()
             return self.play_game()
 
     def check_four(self, values):

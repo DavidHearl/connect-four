@@ -1,6 +1,8 @@
 """
 Import numpy to for board and transpositioning
 """
+
+
 from models.connect_four import ConnectFour
 
 def main():
