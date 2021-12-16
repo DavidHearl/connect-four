@@ -1,46 +1,48 @@
-"""Placeholder"""
+"""
+Contains connect four class that sets up the board,
+checks input errors and checks for a win.
+"""
 
 
+# Import numpy for use in the board creation
+# and for checking a diagonal array
 import numpy as np
 from utilities import configure_board
 
 
 class ConnectFour:
     """
-    Main class, contains the play_game function,
-    move and validation functions
+    Main class - contains the functions that: prints
+    the board, places counters, checks for user errors
+    and checks for a player win.
     """
     def __init__(self):
-        """
-        Defines the board using numpy.
-        Sets 'winner' and 'to_play' as none/false.
-        Creates the markers that will be used to replace 0, 1 and 2
-        """
+        """Defines the board and creates markers"""
         # Got zeros from numpy to create an array of arrays
         # https://numpy.org/doc/stable/reference/generated/numpy.zeros.html
         self.board = np.zeros(shape=(6, 7), dtype=int)
+        # Sets winner and counter to be played as none
         self.winner = None
         self.to_play = None
+        # Defines markers to index to later
         self.markers = [" ", "X", "O"]
 
     def print_board(self):
-        """
-        Creates the opening and close of the connect four table.
-        Creates the inner grid of rows and columns
-        """
+        """Prints a blank board"""
         print("+---+---+---+---+---+---+---+")
+        # Creates an array of 0s that are used for the markers above
         configure_board(self.markers, self.board)
         print("+---+---+---+---+---+---+---+")
         print("  0   1   2   3   4   5   6  ")
 
     def move(self, column):
         """
-        Places the counter at the bottom of the grid
-        the grid starts at 0,0 so it needs to count backwards
-        Sets the next turn as either X or O (1 or 2)
+        Contains movement behavior and the correct counter to use each turn
         """
+        # Checks if a column is filled
         filled = True
         height = 5
+        # Steps through height till it reaches the lowest position for a marker
         while filled:
             if self.board[height, column] == 0:
                 filled = False
@@ -49,6 +51,7 @@ class ConnectFour:
 
         self.board[height, column] = self.to_play
 
+        # Specifies which counter to use on each players respective turns
         if self.to_play == 1:
             self.to_play = 2
         else:
@@ -56,14 +59,18 @@ class ConnectFour:
 
     def play_game(self):
         """
-        Sets the user to X and winner to none
-        Checks the user is using the correct formatting (int)
-        Generates a random move for the computer
-        Tells the user who has won and asks if they would like to play again
+        Checks if the user has entered the correcy input,
+        generates the computers move and displays a message if
+        a user has won
         """
+        # Sets the first marker to use as "X"
         self.to_play = 1
+        # Sets win status and previous input to
+        # none as it is the start of the game
         win = None
         prev_input = None
+        # checks if the user has entered the wrong input
+        # or if the column is already full
         while win is None:
             if self.to_play == 1:
                 incorrect_format = True
@@ -82,37 +89,48 @@ class ConnectFour:
                 self.move(user_input)
                 prev_input = user_input
             else:
+                # sets the moves the computer would like to play
+                # in this case (user input -1, +0, +1)
                 desirable_moves = [prev_input - 1, prev_input, prev_input + 1]
                 possible_moves = []
+                # checks to see if there are any possible moves
+                # that are the same as desirable moves
                 for col in desirable_moves:
                     if col in self.possible_moves():
                         possible_moves.append(col)
 
+                # if there is a possible and desirable move choose one randomly
                 if len(possible_moves) == 0:
                     self.move(np.random.choice(self.possible_moves()))
+                # if there are no possible and desirable moves
+                # choose a possible move
                 else:
                     self.move(np.random.choice(possible_moves))
 
+            # update the marker position on the board
             self.print_board()
+            # check to see if a player has won
             win = self.check_winner()
 
+        # if a player has won display a win message
         print(f"Player {self.markers[win]} has won the game")
+        # ask the user if they would like to play again
         play_again = input("Would you like to play again Y/N: ")
+        # convert the users input into a lower case
         play_again = play_again.lower()
 
+        # if the presses "y" the game starts again
         if play_again == "y":
-            # Run file again if user types "Y"
             self.board = np.zeros(shape=(6, 7), dtype=int)
             self.print_board()
             return self.play_game()
 
     def check_four(self, values):
-        """
-        Checks to see if there are 4 values in a row,
-        ignoring 0 as it is an empty space.
-        """
+        """Checks to see if there are four in a row"""
+        # creates a count for how many markers are in a row
         current = values[0]
         count = 0
+        # sets the value of count based on how many markers are in a row
         for i in range(len(values)):
             if values[i] == 0:
                 current = values[i]
@@ -128,11 +146,8 @@ class ConnectFour:
                 return current
 
     def check_winner(self):
-        """
-        Checks columns for win
-        Checks rows for win
-        Check left and right diagonal for wins
-        """
+        """Checks for a winner in any of the possible configurations"""
+        # checks for a win in rows
         for column in range(6):
             values = self.board[:, column]
             result = self.check_four(values)
@@ -140,6 +155,7 @@ class ConnectFour:
             if result:
                 return result
 
+        # checks for a win in columns
         for row in range(6):
             values = self.board[row, :]
             result = self.check_four(values)
@@ -147,7 +163,8 @@ class ConnectFour:
             if result:
                 return result
 
-        # We dont need to check the corners of the grid as there are not
+        # checks for any for a win in the diagonals
+        # we dont need to check the corners of the grid as there are not
         # enough spaces in the corner to reach 4 in a row
         for diag in range(-3, 4):
             values = self.board.diagonal(diag)
@@ -170,9 +187,7 @@ class ConnectFour:
             return 0
 
     def possible_moves(self):
-        """
-        Returns moves that can still be played
-        """
+        """Returns moves that can still be played"""
         options = []
         for col in range(7):
             values = self.board[:, col]

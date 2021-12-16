@@ -1,4 +1,4 @@
-"""Import numpy to for board and transpositioning"""
+"""Main file that runs imports class and runs core functions"""
 
 
 from models.connect_four import ConnectFour
