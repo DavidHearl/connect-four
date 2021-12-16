@@ -51,7 +51,8 @@ class ConnectFour:
 
         self.board[height, column] = self.to_play
 
-        # Specifies which counter to use on each players respective turns
+        # after playing move, change the to_play
+        # variable to the other player
         if self.to_play == 1:
             self.to_play = 2
         else:
@@ -70,7 +71,8 @@ class ConnectFour:
         win = None
         prev_input = None
         # checks if the user has entered the wrong input
-        # or if the column is already full
+        # or if the column is already full, will loop
+        # until the user gives the correct input
         while win is None:
             if self.to_play == 1:
                 incorrect_format = True
@@ -128,16 +130,20 @@ class ConnectFour:
     def check_four(self, values):
         """Checks to see if there are four in a row"""
         # creates a count for how many markers are in a row
+        # current is the marker that we are currently looking at
         current = values[0]
         count = 0
-        # sets the value of count based on how many markers are in a row
+        # don't count 0s (empty spaces) and stop count going above 1
         for i in range(len(values)):
             if values[i] == 0:
                 current = values[i]
                 count = 1
-
+            
+            # if next value is the same as current add one to count
             if values[i] == current:
                 count += 1
+            # if next value is not same as curretn, change current to
+            # value of next marker and reset count
             else:
                 current = values[i]
                 count = 1
@@ -189,6 +195,8 @@ class ConnectFour:
     def possible_moves(self):
         """Returns moves that can still be played"""
         options = []
+        # check if the top column is empty
+        # if so then there is a possible move
         for col in range(7):
             values = self.board[:, col]
             if values[0] == 0:

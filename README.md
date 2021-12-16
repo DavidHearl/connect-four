@@ -4,7 +4,7 @@ Connect four is a Python terminal game, which runs in the Code Institute mock te
 
 https://dry-savannah-35963.herokuapp.com/
 
-Users can compete against to computer to be the first to get four counters in a row. This can vertical, horizontal or diagonal.
+Users can compete against the computer to be the first to get four counters in a row. This can vertical, horizontal or diagonal.
 
 ## How to play
 
@@ -97,3 +97,4 @@ Following steps for deployment:
 
 - Wikipedia for details on how to play connect four
 - Code Institute for the deployment terminal
+- Numpy - https://numpy.org/
