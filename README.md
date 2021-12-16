@@ -57,8 +57,6 @@ At the start of the project I created a flow chart to set the structure for the 
 - Keep a running total of how many games each player has won
 - Leverage deep learning to create an AI to play as the computer instead of a random move
 
-## Data Model
-
 ## Testing
 
 Initial testing was completed by myself, this was achieved through the following methods:
